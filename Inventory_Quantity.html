@@ -5,29 +5,37 @@
 </HEAD>
 <BODY>
 
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."><BR>
-<I>Actualizado a la fecha: 2026/06/28 09:19PM</I>
+Search Set: <input type="text" id="SetInput" onkeyup="myFunction()" placeholder="Search for names.."><BR>
+Search Card_Name: <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."><BR>
+<I>Actualizado a la fecha: 2026/07/05 02:05AM</I>
 
 <script>
 function myFunction() {
   // Declare variables
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
+  var inputset, inputname, filter, table, tr, settd, nametd, i, txtValue;
+  inputset = document.getElementById("SetInput");
+  inputname = document.getElementById("myInput");
+  filterset = inputset.value.toUpperCase();
+  filtername = inputname.value.toUpperCase();
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
+  for (i = 1; i < tr.length; i++) {
+    settd = tr[i].getElementsByTagName("td")[0];
+    nametd = tr[i].getElementsByTagName("td")[2];
+    //if (td) {
+      //txtValue = td.textContent || td.innerText;
+      //if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        //tr[i].style.display = "";
+      //} else {
         tr[i].style.display = "none";
-      }
-    }
+      //}
+    //}
+    var setMatch = !filterset || (settd && settd.textContent.toUpperCase().indexOf(filterset) > -1);
+    var nameMatch = !filtername || (nametd && nametd.textContent.toUpperCase().indexOf(filtername) > -1);
+
+    tr[i].style.display = (setMatch && nameMatch) ? "" : "none";
   }
 }
 </script>
